@@ -19,6 +19,7 @@ PLAYER_PIECE = 1
 AI_PIECE = 2
 
 WINDOW_LENGTH = 4
+EMPTY = 0
 
 def create_board():
     board = np.zeros((ROW_COUNT,COLUMN_COUNT))
@@ -74,6 +75,29 @@ def score_position(board, piece):
              score+=10
  return score
 
+def get_valid_locations(board):
+     valid_locations = []
+     for col in range(COLUMN_COUNT):
+         if is_valid_location(board, col):
+             valid_locations.append(col)
+     return valid_locations
+
+
+def pick_best_move(board, piece):
+    valid_locations = get_valid_locations(board)
+    best_score = 0
+    best_col = random.choice(valid_locations)
+    for col in valid_locations:
+        row = get_next_open_row(board, col)
+        temp_board = board.copy()
+        drop_piece(temp_board, row, col, piece)
+        score = score_position(temp_board, piece)
+        ## if new score found but potential position is better than current best score, update best score and best col position
+        if score > best_score:
+            best_score = score
+            best_col = col
+            
+    return best_col
 
 
 def draw_board(board):
@@ -153,7 +177,8 @@ while not game_over:
                     
         if turn == AI and not game_over:
           # input
-            col = random.randint(0, COLUMN_COUNT-1)  
+            # col = random.randint(0, COLUMN_COUNT-1)  
+            col = pick_best_move(board, AI_PIECE)
 
             if is_valid_location(board,col):
                 pygame.time.wait(500)
