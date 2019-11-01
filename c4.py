@@ -64,16 +64,27 @@ def winning_move(board, piece):
 
 def score_position(board, piece):
  ## Calculate Horizontal Score
- score = 0
- for r in range(ROW_COUNT):
-     row_array = [int(i) for i in list(board[r,:])]
-     for c in range(COLUMN_COUNT-3):
-         window = row_array[c:c+WINDOW_LENGTH]
-         if window.count(piece) == 4:
-             score+=100
-         elif window.count(piece) == 3 and window.count(EMPTY) == 1:
-             score+=10
- return score
+    score = 0
+    for r in range(ROW_COUNT):
+        row_array = [int(i) for i in list(board[r,:])]
+        for c in range(COLUMN_COUNT-3):
+            window = row_array[c:c+WINDOW_LENGTH]
+            if window.count(piece) == 4:
+                score+=100
+            elif window.count(piece) == 3 and window.count(EMPTY) == 1:
+                score+=10
+    
+    ##Calculate Vertical Score
+    for c in range(COLUMN_COUNT):
+        col_array = [int(i) for i in list(board[:,c])]
+        for r in range(ROW_COUNT-3):
+            window = col_array[r:r+WINDOW_LENGTH]
+            if window.count(piece) == 4:
+                score += 100
+            elif window.count(piece) == 3 and window.count(EMPTY) == 1:
+                score += 10
+    
+    return score
 
 def get_valid_locations(board):
      valid_locations = []
