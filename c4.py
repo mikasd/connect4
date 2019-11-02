@@ -81,8 +81,14 @@ def evaluate_window(window, piece):
     return score 
 
 def score_position(board, piece):
- ## Calculate Horizontal Score
     score = 0
+    ## Prefer Center Board Moves for overall increase in combination setup potential
+    center_array = [int(i) for i in list(board[:, COLUMN_COUNT//2])]
+    center_count = center_array.count(piece)
+    score += center_count * 6
+
+    ## Calculate Horizontal Score
+    
     for r in range(ROW_COUNT):
         row_array = [int(i) for i in list(board[r,:])]
         for c in range(COLUMN_COUNT-3):
