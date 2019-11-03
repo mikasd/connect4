@@ -1,4 +1,4 @@
-## GUI based Connect4 using pygame
+## Connect4 using pygame
 # Has AI opponent
 - uses minimax algorithm adapted for connect 4
 - optimizes algorithm runtime with alpha and beta pruning
