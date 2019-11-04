@@ -5,4 +5,5 @@
 
 # install files
 # make sure you have python 3 installed
-# open terminal and input 'python c4.py' and enjoy
+# open terminal and input 'python c4.py'
+#### enjoy
